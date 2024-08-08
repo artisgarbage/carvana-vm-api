@@ -1,0 +1,324 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Boulder VM Dev API",
+    "description": "Vend vehicles from Boulder VM development location"
+  },
+  "paths": {
+    "/stock": {
+      "get": {
+        "operationId": "getVehicles",
+        "summary": "Get all vehicles stocked in the VM",
+        "responses": {
+          "200": {
+            "description": "The vehicles stocked in the VM",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Vehicle"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stock/{vmStockId}": {
+      "parameters": [
+        {
+          "name": "vmStockId",
+          "description": "The unique identifier of the vehicle within the VM",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/vmStockId"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "getStockedVehicleById",
+        "summary": "Read a stocked item in the VM",
+        "responses": {
+          "200": {
+            "description": "The vehicle corresponding to the provided `vmStockId`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No vehicle found for the provided `vmStockId`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "addStockedVehicleById",
+        "summary": "Add a vehicle to the Stock of the VM",
+        "responses": {
+          "200": {
+            "description": "The vehicle corresponding to the provided `vmStockId`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queue": {
+      "get": {
+        "operationId": "getQueue",
+        "summary": "Get the next vehicle in the queue",
+        "responses": {
+          "200": {
+            "description": "The vehicle corresponding to the provided `vmStockId`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No vehicle found for the provided `vmStockId`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queue/{vmStockId}": {
+      "parameters": [
+        {
+          "name": "vmStockId",
+          "description": "The unique identifier of the vehicle within the VM",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/vmStockId"
+          }
+        }
+      ],
+      "post": {
+        "operationId": "queueVehicleById",
+        "summary": "Queue a vehicle to be vended next",
+        "responses": {
+          "200": {
+            "description": "The vehicle corresponding to the provided `vmStockId`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queue/clear": {
+      "post": {
+        "operationId": "queueClear",
+        "summary": "Clear the queue so that it is empty",
+        "responses": {
+          "200": {
+            "description": "The vehicle corresponding to the provided `vmStockId`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/coin": {
+      "post": {
+        "operationId": "coinDrop",
+        "summary": "Drop a coin and vend the queued vehicle",
+        "responses": {
+          "200": {
+            "description": "Coin drop successfully simulated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/palette": {
+      "post": {
+        "operationId": "paletteReturn",
+        "summary": "Return a palette to the vending machine",
+        "responses": {
+          "200": {
+            "description": "Pallete return event sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "vmStockId": {
+        "description": "The unique identifier of a vehicle stocked within the VM tower",
+        "type": "string"
+      },
+      "Vehicle": {
+        "type": "object",
+        "required": ["id", "name", "type"],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/vmStockId"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["CA Number", "Stock Number", "Unique Label"]
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": ["message"],
+        "properties": {
+          "message": {
+            "description": "A human readable error message",
+            "type": "string"
+          }
+        }
+      },
+      "Success": {
+        "type": "object",
+        "required": ["message"],
+        "properties": {
+          "message": {
+            "description": "A human readable success message",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
