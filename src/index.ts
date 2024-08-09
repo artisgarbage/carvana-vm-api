@@ -7,11 +7,9 @@ import { open } from "sqlite";
 
 import type { Request } from "openapi-backend";
 
-const app = Express();
-app.use(Express.json());
-
-// this is a top-level await
 (async () => {
+  const app = Express();
+  app.use(Express.json());
   // open the database
   const db = await open({
     filename: "./db/vm-co-948_North.db",
