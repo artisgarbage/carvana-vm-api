@@ -4,9 +4,9 @@ import Express from "express";
 import morgan from "morgan";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
-
 import type { Request } from "openapi-backend";
 
+// Main Self-Invoking async function to enable await
 (async () => {
   const app = Express();
   app.use(Express.json());
@@ -42,7 +42,16 @@ import type { Request } from "openapi-backend";
         c,
         req: Express.Request,
         res: Express.Response
-      ) => res.status(200).json({ operationId: c.operation.operationId }),
+      ) =>
+        res
+          .status(200)
+          .json(
+            await db.run(
+              `UPDATE queue SET vehicleId = "${req.path
+                .split("/")
+                .pop()}" WHERE "id" = 1;`
+            )
+          ),
       queueClear: async (c, req: Express.Request, res: Express.Response) =>
         res.status(200).json({ operationId: c.operation.operationId }),
       coinDrop: async (c, req: Express.Request, res: Express.Response) =>
