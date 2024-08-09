@@ -16,7 +16,7 @@ const api = new OpenAPIBackend({
       res.status(200).json([
         { id: "vmAuto1", name: "Subaru Car", type: "Unique Label" },
         { id: "vmAuto2", name: "BMW Car", type: "Unique Label" },
-        { id: "vmAuto3", name: "BMW Car", type: "Unique Labelss" },
+        { id: "vmAuto3", name: "BMW Car", type: "Unique Label" },
       ]),
     getStockedVehicleById: async (
       c,
@@ -43,6 +43,13 @@ const api = new OpenAPIBackend({
     notFound: async (c, req: Express.Request, res: Express.Response) =>
       res.status(404).json({ err: "not found" }),
   },
+});
+
+api.registerSecurityHandler("ApiKey", (c) => {
+  const authorized = c.request.headers["X-Api-key"] === "SuperSecretApiKey123";
+  // truthy return values are interpreted as auth success
+  // you can also add any auth information to the return value
+  return authorized;
 });
 
 api.init();
