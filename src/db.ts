@@ -1,19 +1,25 @@
 import sqlite3 from "sqlite3";
-const db = new sqlite3.Database(":memory:");
+const db = new sqlite3.Database(
+  "./db/vm-co-948_North.db",
+  sqlite3.OPEN_READWRITE,
+  (err) => {
+    if (err) {
+      console.error(err.message);
+    }
+    console.log("Connected to the 948 North database.");
+  }
+);
 
 db.serialize(() => {
-  db.run("CREATE TABLE lorem (info TEXT)");
-
-  const stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-  for (let i = 0; i < 10; i++) {
-    stmt.run("Ipsum " + i);
-  }
-  stmt.finalize();
-
   db.each(
-    "SELECT rowid AS id, info FROM lorem",
-    (err, row: { id: Number; info: String }) => {
-      console.log(row.id + ": " + row.info);
+    `SELECT id as id,
+        name as name
+    FROM stock`,
+    (err, row: { id: String; name: String }) => {
+      if (err) {
+        console.error(err.message);
+      }
+      console.log(row.id + "\t" + row.name);
     }
   );
 });
