@@ -6,6 +6,7 @@
 
 ## Getting Started
 
+- Run the appropriate version of NodeJS `nvm use`
 - Review [`package.json`](https://github.com/codelab303/carvana-vm-api/blob/chavez-wip/package.json)
 - Run `yarn install`
 - To do work, run `yarn dev`
