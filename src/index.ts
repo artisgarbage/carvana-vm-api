@@ -1,3 +1,4 @@
+import "dotenv/config";
 import "source-map-support/register";
 import OpenAPIBackend from "openapi-backend";
 import Express from "express";
@@ -7,6 +8,8 @@ import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import type { Request } from "openapi-backend";
 import { drop } from "./coin";
+
+console.log(`ℹ️ API Running in MODE: ${process.env.MODE}`);
 
 // Main Self-Invoking async function to enable await
 (async () => {
@@ -66,8 +69,10 @@ import { drop } from "./coin";
         res.status(200).json({ operationId: c.operation.operationId }),
       coinDrop: async (c, req: Express.Request, res: Express.Response) => {
         //attemptRealVend is FALSE by default
-        drop(false);
-        res.status(200).json({ operationId: c.operation.operationId });
+        let responseMsg = drop(false);
+        console.log(`Responding with message: ${responseMsg.message}`);
+        res.status(200).json(responseMsg);
+        // res.status(200).json({ operationId: c.operation.operationId });
       },
       paletteReturn: async (c, req: Express.Request, res: Express.Response) =>
         res.status(200).json({ operationId: c.operation.operationId }),

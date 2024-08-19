@@ -19,3 +19,11 @@
 curl --location 'http://localhost:9000/stock/' \
 --header 'X-Api-Key: SuperSecretApiKey123'```
 ````
+
+## Running in different environments
+
+Pass in a specific ENV to the yarn command of your choice, likely `yarn start`
+
+```bash
+dotenvx run --env-file=.env.prod -- yarn start
+```

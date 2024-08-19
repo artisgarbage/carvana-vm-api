@@ -15,9 +15,9 @@ export function queue(attemptRealVend: Boolean, stockNumber: String) {
     axios
       .request(config)
       .then((response) => {
-        let responseData = JSON.stringify(response.data);
-        console.log(responseData);
-        return responseData;
+        let cueServerResponseData = JSON.stringify(response.data);
+        console.log(cueServerResponseData);
+        return cueServerResponseData;
       })
       .catch((error) => {
         console.log(error);
@@ -29,9 +29,9 @@ export function queue(attemptRealVend: Boolean, stockNumber: String) {
     axios
       .request(config)
       .then((response) => {
-        let responseData = JSON.stringify(response.data);
-        console.log(responseData);
-        return responseData;
+        let cueServerResponseData = JSON.stringify(response.data);
+        console.log(cueServerResponseData);
+        return cueServerResponseData;
       })
       .catch((error) => {
         console.log(error);
