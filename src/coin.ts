@@ -16,7 +16,7 @@ let message = { message: "Acknowledged" };
 
 let cueExecPath = `http://${process.env.NETWORK_ID}.${process.env.HOST_ID}/exe.cgi?cmd=`;
 
-console.log(`ℹ️ CUE Server Exec Path: ${cueExecPath}`);
+console.log(`ℹ️ Coin CUE Server Exec Path: ${cueExecPath}`);
 
 export function drop(attemptRealVend: Boolean) {
   // Local development
@@ -35,7 +35,6 @@ export function drop(attemptRealVend: Boolean) {
         .request(config)
         .then((response) => {
           let cueServerResponseData = JSON.stringify(response.data);
-          // Log response from Cue Server
           console.log(cueServerResponseData);
         })
         .catch((error) => {
