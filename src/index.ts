@@ -103,7 +103,7 @@ console.log(`ℹ️ API Running in MODE: ${process.env.MODE}`);
   app.use((req, res) => api.handleRequest(req as Request, req, res));
 
   // start server
-  app.listen(9000, () =>
-    console.info("api listening at http://localhost:9000")
+  app.listen(process.env.PORT, () =>
+    console.info(`api listening at http://localhost:${process.env.PORT}`)
   );
 })();
