@@ -5,6 +5,7 @@ import morgan from "morgan";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import type { Request } from "openapi-backend";
+import { drop } from "./coin";
 
 // Main Self-Invoking async function to enable await
 (async () => {
@@ -61,8 +62,11 @@ import type { Request } from "openapi-backend";
           ),
       queueClear: async (c, req: Express.Request, res: Express.Response) =>
         res.status(200).json({ operationId: c.operation.operationId }),
-      coinDrop: async (c, req: Express.Request, res: Express.Response) =>
-        res.status(200).json({ operationId: c.operation.operationId }),
+      coinDrop: async (c, req: Express.Request, res: Express.Response) => {
+        //attemptRealVend is FALSE by default
+        drop(false);
+        res.status(200).json({ operationId: c.operation.operationId });
+      },
       paletteReturn: async (c, req: Express.Request, res: Express.Response) =>
         res.status(200).json({ operationId: c.operation.operationId }),
       validationFail: async (c, req: Express.Request, res: Express.Response) =>
