@@ -32,13 +32,14 @@ import { drop } from "./coin";
         req: Express.Request,
         res: Express.Response
       ) =>
-        res.status(200).json(
-          await db.get(
-            //${req.path.split("/").pop()}
-            `SELECT * FROM stock WHERE id = ?`,
-            `${req.path.split("/").pop()}`
-          )
-        ),
+        res
+          .status(200)
+          .json(
+            await db.get(
+              `SELECT * FROM stock WHERE id = ?`,
+              `${req.path.split("/").pop()}`
+            )
+          ),
       addStockedVehicleById: async (
         c,
         req: Express.Request,
