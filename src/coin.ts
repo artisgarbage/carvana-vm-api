@@ -17,7 +17,7 @@ export function drop(attemptRealVend: Boolean) {
 
   if (attemptRealVend) {
     console.log("🚨🚨🪙 Coin Drop M1M100: (Full Coin Drop Event) 🪙🚨🚨");
-    config.url = "http://10.51.205.253/exe.cgi?cmd=m1";
+    config.url = "10.51.205.61/Home/CallLighting?command=m100m101";
     axios
       .request(config)
       .then((response) => {
@@ -32,7 +32,7 @@ export function drop(attemptRealVend: Boolean) {
   // TESTING variation of this method where attemptRealVend is false
   else {
     console.log("🪙🪙🪙 Coin Drop M1: (Intro Lights & Audio Only) 🪙🪙🪙");
-    config.url = "10.51.205.61/Home/CallLighting?command=m100m101";
+    config.url = "http://10.51.205.253/exe.cgi?cmd=m1";
     axios
       .request(config)
       .then((response) => {
@@ -44,4 +44,5 @@ export function drop(attemptRealVend: Boolean) {
         console.log(error);
       });
   }
+  return "Drop Success";
 }

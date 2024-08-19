@@ -1,6 +1,7 @@
 import "source-map-support/register";
 import OpenAPIBackend from "openapi-backend";
 import Express from "express";
+import cors from "cors";
 import morgan from "morgan";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
@@ -89,6 +90,9 @@ import { drop } from "./coin";
 
   // logging
   app.use(morgan("combined"));
+
+  // enable CORS
+  app.use(cors<Express.Request>());
 
   // use as express middleware
   app.use((req, res) => api.handleRequest(req as Request, req, res));
