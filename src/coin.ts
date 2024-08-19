@@ -30,7 +30,7 @@ export function drop(attemptRealVend: Boolean) {
     if (attemptRealVend) {
       // 🚨 NOTE: THIS WILL ACTUALLY VEND A CAR IF A VALID STOCK NUMBER HAS BEEN SENT TO CUE SERVER, AND THIS CODE IS EXECUTED ON THE CARVANA NETWORK
       console.log("🚨🚨🪙 Coin Drop M1M100: (Full Coin Drop Event) 🪙🚨🚨");
-      config.url = `${cueExecPath}m100m101`;
+      config.url = `${cueExecPath}m101`;
       axios
         .request(config)
         .then((response) => {
