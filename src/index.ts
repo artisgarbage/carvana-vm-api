@@ -8,6 +8,7 @@ import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import type { Request } from "openapi-backend";
 import { drop } from "./coin";
+import { queue } from "./queue_by_stock_number";
 
 console.log(`ℹ️ API Running in MODE: ${process.env.MODE}`);
 
@@ -55,16 +56,10 @@ console.log(`ℹ️ API Running in MODE: ${process.env.MODE}`);
         c,
         req: Express.Request,
         res: Express.Response
-      ) =>
-        res
-          .status(200)
-          .json(
-            await db.run(
-              `UPDATE queue SET vehicleId = "${req.path
-                .split("/")
-                .pop()}" WHERE "id" = 1;`
-            )
-          ),
+      ) => {
+        let responseMsg = queue(false, "unsetStockNumber");
+        res.status(200).json(responseMsg);
+      },
       queueClear: async (c, req: Express.Request, res: Express.Response) =>
         res.status(200).json({ operationId: c.operation.operationId }),
       coinDrop: async (c, req: Express.Request, res: Express.Response) => {

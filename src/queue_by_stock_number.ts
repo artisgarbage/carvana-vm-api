@@ -8,6 +8,16 @@ let config = {
   url: "",
 };
 
+// res
+//           .status(200)
+//           .json(
+//             await db.run(
+//               `UPDATE queue SET vehicleId = "${req.path
+//                 .split("/")
+//                 .pop()}" WHERE "id" = 1;`
+//             )
+//           )
+
 // Generic message that is always returned by the API to the client, even if Cue Server has an issue.
 let message = { message: "Acknowledged" };
 
@@ -16,6 +26,7 @@ let cueExecPath = `http://${process.env.NETWORK_ID}.${process.env.HOST_ID}/exe.c
 console.log(`ℹ️ Queue CUE Server Exec Path: ${cueExecPath}`);
 
 export function queue(attemptRealVend: Boolean, stockNumber: String) {
+  console.log(`ℹ️🚘 ${stockNumber} schduled for next vend`);
   if (attemptRealVend) {
     console.log("🚨🚨🪙 Attempt to Queue a Real Car 🪙🚨🚨");
     config.url = `${cueExecPath}set%20requestID%20%${stockNumber}%22`;
