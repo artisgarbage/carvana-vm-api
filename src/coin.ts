@@ -47,6 +47,7 @@ export function drop(attemptRealVend: Boolean) {
     else {
       console.log("🪙🪙🪙 Coin Drop M1: (Intro Lights & Audio Only) 🪙🪙🪙");
       config.url = `${cueExecPath}m1`;
+      console.log(`Cue Server URI: ${cueExecPath}m1`);
       axios
         .request(config)
         .then((response) => {
