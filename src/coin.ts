@@ -1,4 +1,10 @@
 import axios from "axios";
+import { getNetworkInfo } from "./network";
+const network = getNetworkInfo();
+
+if (network) {
+  console.log(`🆗 Got a network ID`);
+}
 
 // Events
 // m1: Coin drop audio
